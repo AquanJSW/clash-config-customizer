@@ -1,3 +1,7 @@
-- `assets/`: non-code files
-- `config/`: Clash configuration related code
-- `layout/`: Program configuration
+- `main.py`: Program entry
+---
+- `clash/`: Clash class
+- `config/`: Clash configuration related classes
+- `layout/`: Program configuration related code
+- `template/`: Clash template config
+- `utils/`: Utils code
