@@ -1,0 +1,66 @@
+mixed-port: 7890
+allow-lan: true
+mode: rule
+log-level: silent
+external-controller: 'localhost:9090'
+ipv6: true
+
+# user added proxies
+proxies:
+- name: "ss1"
+  type: ss
+  server: server
+  port: 443
+  cipher: chacha20-ietf-poly1305
+  password: "password"
+  # udp: true
+
+proxy-groups:
+- name: Proxy
+  type: select
+  proxies: # user added proxies
+  - ss1
+  # no country key, all proxies from subscription configs will be added
+
+
+- name: YouTube
+  type: select
+  country: # only Japan proxies will be added
+  - JP
+
+- name: bilibili
+  type: select 
+  country:
+  - HK
+  - TW
+  proxies:
+  - DIRECT
+
+- name: mine
+  type: select
+  proxies:
+  - ss1
+  country: # empty country, no proxies will be added
+ 
+rules:
+  # mine
+  - PROCESS-NAME,utorrent.exe,mine
+
+  # direct
+  - DST-PORT,22,DIRECT
+
+  # YouTube
+  - DOMAIN-SUFFIX,googlevideo.com,YouTube
+  - DOMAIN-SUFFIX,youtube.com,YouTube
+  - DOMAIN,youtubei.googleapis.com,YouTube
+
+  # bilibili
+  - DOMAIN-SUFFIX,biliapi.com,bilibili
+  - DOMAIN-SUFFIX,biliapi.net,bilibili
+  - DOMAIN-SUFFIX,bilibili.com,bilibili
+  - DOMAIN-SUFFIX,bilibili.tv,bilibili
+  - DOMAIN-SUFFIX,bilivideo.com,bilibili
+
+  - GEOIP,LAN,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,Proxy

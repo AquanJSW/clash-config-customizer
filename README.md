@@ -1,0 +1,3 @@
+- `assets/`: non-code files
+- `config/`: Clash configuration related code
+- `layout/`: Program configuration

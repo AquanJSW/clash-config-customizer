@@ -1,0 +1,10 @@
+/plantUML-out
+/output
+/.vscode/*
+!/.vscode/settings.json
+__pycache__/
+/template/*
+!/template/sample.yml
+/test.py
+/assets/
+/*.puml
