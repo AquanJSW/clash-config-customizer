@@ -3,10 +3,7 @@ import argparse
 
 def parse_args(init_args=None):
     parser = argparse.ArgumentParser(
-        description="""
-Notice
-    Set environment variable 'https_proxy' if you want to use proxy.
-"""
+        description="Set environment variable 'https_proxy' if you want to use proxy."
     )
 
     # Required Options
