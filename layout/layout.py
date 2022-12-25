@@ -116,7 +116,7 @@ def set_layout(args: argparse.Namespace):
 
     # nargs check
     assert len(args.subscription_configs) == len(args.prefixes)
-    assert len(args.template_configs) == len(args.output_paths)
+    assert len(args.template_configs) == len(args.output_names)
 
     # load proxy
     # adapt the proxy config to requests package
@@ -136,9 +136,7 @@ def set_layout(args: argparse.Namespace):
 
     # outputs
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    Layout.output_paths = [
-        os.path.join(OUTPUT_DIR, name + '.yml') for name in args.output_names
-    ]
+    Layout.output_paths = [os.path.join(OUTPUT_DIR, name) for name in args.output_names]
 
     # prefix assign
     Layout.prefixes = [str(x) for x in args.prefixes]
