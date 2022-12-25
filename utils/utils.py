@@ -25,13 +25,10 @@ def load_yaml(url_or_path: str) -> dict:
 
 
 def load_yaml_from_url(url: str):
-    timeout = 10
-
     headers = {'charset': 'utf-8'}
     r = requests.get(
         url=url,
         headers=headers,
-        timeout=timeout,
     )
     ret = yaml.safe_load(r.text)
     return ret

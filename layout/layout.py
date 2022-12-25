@@ -21,10 +21,12 @@ clash_url_windows = (
 )
 clash_bin_name_linux = 'clash-linux-amd64'
 clash_bin_name_windows = 'clash-windows-amd64.exe'
-clash_extract_dir = os.path.expanduser('~/.config')
+clash_extract_dir = os.path.abspath('assets')
 
 mmdb_url = 'https://git.io/GeoLite2-Country.mmdb'
-mmdb_download_dir = os.path.expanduser('~/.config')
+mmdb_download_dir = os.path.expanduser('assets')
+
+OUTPUT_DIR = 'output'
 
 
 class Layout:
@@ -41,8 +43,8 @@ class Layout:
 
     # manual set
     geometry_key = 'country'
-    proxy_name_fmt_4 = '{iso_code}-{seq:02}'
-    proxy_name_fmt_6 = '[IPv6] ' + proxy_name_fmt_4
+    proxy_name_fmt_4 = '{iso_code}.{seq:02}'
+    proxy_name_fmt_6 = 'IPv6.' + proxy_name_fmt_4
 
 
 def is_enable_renames_valid(enable_renames):
@@ -132,10 +134,11 @@ def set_layout(args: argparse.Namespace):
             raise KeyError(f'no "proxy-groups" in config {src}')
         Layout.template_configs.append(config)
 
-    # check and assign output paths
-    for path in args.output_paths:
-        os.makedirs(pathlib.Path(path).parent, exist_ok=True)
-    Layout.output_paths = args.output_paths
+    # outputs
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    Layout.output_paths = [
+        os.path.join(OUTPUT_DIR, name + '.yml') for name in args.output_names
+    ]
 
     # prefix assign
     Layout.prefixes = [str(x) for x in args.prefixes]

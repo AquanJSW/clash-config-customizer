@@ -34,8 +34,8 @@ def parse_args(init_args=None):
     )
     required_opts.add_argument(
         '-o',
-        '--output-paths',
-        help='paths of output configs',
+        '--output-names',
+        help='names of output configs (no extension)',
         nargs='+',
         required=True,
     )
